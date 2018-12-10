@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N delaiQ
+#PBS -q gpu
+#PBS -l nodes=04
+#PBS -j oe
+
+cd /home/lxw/delaiQ/bert/script
+
+# source activate tensorflowgpu
+source activate tf_1.9
+# ldconfig -p|grep libcuda
+# cuda
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/Software/cuda-9.0/lib64/
+export CUDA_HOME=/data/Software/cuda-9.0
+export PATH=$PATH:/data/Software/cuda-9.0/bin
+
+ldconfig -p|grep libcuda
+nvidia-smi
+export PYTHONPATH=${PYTHONPATH}:`pwd`
+# export CUDA_VISIBLE_DEVICES=0
+home=/home/lxw/delaiQ
+bert_home=/home/lxw/delaiQ/data/bert/chinese_L-12_H-768_A-12
+python test.py
+
+
+
+
+
